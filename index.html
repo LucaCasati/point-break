@@ -1,23 +1,586 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <title>Sito in manutenzione – Point Break</title>
+  <meta charset="UTF-8" />
+  <title>Point Break – Business Consulting</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Point Break Srl – piattaforma B2B italiana collegata a Signed Pieces Group (New York) per progetti nel settore gioielleria e orologeria di lusso.">
   <style>
+    :root {
+      --bg-main: #f5f1e8;
+      --bg-section: #faf7f0;
+      --ink: #141c2b;
+      --muted: #6b707b;
+      --accent: #304d6d;
+      --accent-soft: #d0c4aa;
+      --border-soft: #e1d8c4;
+      --max-width: 960px;
+      --radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      background: #f8f8f8;
-      font-family: sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg-main);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border-soft);
+      background: rgba(245, 241, 232, 0.96);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nav-container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border-soft);
+      background: #fff;
+    }
+
+    .brand-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 18px;
+      font-size: 14px;
+    }
+
+    nav a {
+      position: relative;
+      padding-bottom: 2px;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width 0.2s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    main {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    .hero {
       text-align: center;
-      padding: 10%;
-      color: #333;
+      padding: 40px 20px 32px;
+    }
+
+    .hero-logo {
+      width: 210px;
+      height: 210px;
+      margin: 0 auto 26px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-soft);
+      background: #fff;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .hero-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-title {
+      font-size: 30px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .hero-tagline {
+      font-size: 17px;
+      max-width: 640px;
+      margin: 0 auto 24px;
+    }
+
+    .hero-highlight {
+      background: linear-gradient(transparent 60%, rgba(208,196,170,0.6) 60%);
+      padding: 0 2px;
+    }
+
+    .hero-cta {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 10px 20px;
+      font-size: 14px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease,
+        box-shadow 0.18s ease, transform 0.1s ease;
+    }
+
+    .btn-primary {
+      background: var(--ink);
+      color: #f9f8f4;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+    }
+
+    .btn-primary:hover {
+      background: #101623;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn-outline:hover {
+      background: rgba(48, 77, 109, 0.06);
+    }
+
+    section {
+      margin-top: 36px;
+      padding: 24px 22px;
+      background: var(--bg-section);
+      border-radius: var(--radius);
+      border: 1px solid var(--border-soft);
+    }
+
+    section h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+    }
+
+    section p {
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 22px;
+      margin-top: 10px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: rgba(255, 255, 255, 0.7);
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    ul {
+      margin-left: 18px;
+      font-size: 14px;
+    }
+
+    ul li {
+      margin-bottom: 6px;
+    }
+
+    .badge-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .badge {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: #fff;
+      color: var(--muted);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 22px;
+      margin-top: 16px;
+    }
+
+    .contact-card {
+      background: #fff;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-soft);
+      padding: 16px 18px;
+      font-size: 14px;
+    }
+
+    .contact-card h3 {
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border-soft);
+      padding: 16px 20px 26px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 720px) {
+      .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+
+      nav ul {
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .hero {
+        padding-top: 28px;
+      }
+
+      .hero-logo {
+        width: 180px;
+        height: 180px;
+      }
+
+      .hero-title {
+        font-size: 24px;
+      }
+
+      section {
+        padding: 18px 16px;
+      }
+
+      .columns,
+      .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
     }
   </style>
 </head>
 <body>
-  <img src="logo.jpg" alt="Point Break Logo" style="max-width: 300px;">
-  <h1>Sito in costruzione</h1>
-  <p>Stiamo lavorando alla nuova versione del sito.</p>
-  <p>Per contatti: <a href="mailto:luca.casati@point-break.it">luca.casati@point-break.it</a></p>
-  <p><a href="https://www.linkedin.com/in/luca-casati-buyer" target="_blank">LinkedIn – Luca Casati</a></p>
+  <header>
+    <div class="nav-container">
+      <div class="brand">
+        <div class="brand-logo">
+          <!-- Sostituisci il nome file se diverso -->
+          <img src="logo-point-break.png" alt="Logo Point Break Business Consulting">
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">Point Break Srl</span>
+          <span class="brand-subtitle">Business Consulting – Luxury &amp; Fine Jewelry</span>
+        </div>
+      </div>
+      <nav aria-label="Navigazione principale">
+        <ul>
+          <li><a href="#chi-sono">Chi sono</a></li>
+          <li><a href="#cosa-faccio">Cosa faccio</a></li>
+          <li><a href="#signed-pieces">Signed Pieces</a></li>
+          <li><a href="#contatti">Contatti</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-logo">
+        <!-- Stessa immagine del logo, per coerenza con la pagina attuale -->
+        <img src="logo-point-break.png" alt="Point Break – Business Consulting">
+      </div>
+      <h1 id="hero-title" class="hero-title">Point Break</h1>
+      <p class="hero-subtitle">Business Consulting nel mondo del lusso</p>
+      <p class="hero-tagline">
+        Struttura B2B italiana che collega gioiellerie, brand e distributori al
+        <span class="hero-highlight">network internazionale di Signed Pieces Group (New York)</span>
+        per progetti mirati su collezioni passate, stock selezionati e inventory nel settore
+        gioielleria &amp; orologeria.
+      </p>
+
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#contatti">Richiedi un contatto</a>
+        <a class="btn btn-outline" href="#signed-pieces">Collegamento con Signed Pieces</a>
+      </div>
+    </section>
+
+    <section id="chi-sono" aria-labelledby="chi-sono-title">
+      <h2 id="chi-sono-title">Chi sono</h2>
+      <span class="pill">Luca Casati – responsabile Italia per gli acquisti Signed Pieces</span>
+      <div class="columns">
+        <div>
+          <p>
+            Mi chiamo <strong>Luca Casati</strong> e lavoro da anni nel mondo dell’orologeria
+            e della gioielleria di alta gamma, con un focus specifico sulle
+            <strong>collezioni passate</strong> e sugli <strong>stock selezionati</strong>.
+          </p>
+          <p>
+            Attraverso Point Break Srl opero come riferimento italiano per
+            <strong>Signed Pieces Group</strong> (New York), coordinando le attività di
+            individuazione, analisi e strutturazione di opportunità B2B con
+            gioiellerie, brand e distributori.
+          </p>
+          <p class="muted">
+            L’obiettivo è creare progetti chiari, tracciabili e compatibili con il
+            posizionamento dei marchi, tutelando il lavoro dei partner italiani
+            e l’immagine del brand a livello internazionale.
+          </p>
+        </div>
+        <div>
+          <p><strong>Aree di esperienza:</strong></p>
+          <ul>
+            <li>Gioielleria e orologeria di lusso</li>
+            <li>Collezioni passate e fine serie</li>
+            <li>Gestione strutturata di inventory “lento rotante”</li>
+            <li>Relazione continuativa con gruppi internazionali del lusso</li>
+          </ul>
+          <div class="badge-list">
+            <span class="badge">B2B only</span>
+            <span class="badge">Italia &rarr; USA</span>
+            <span class="badge">Luxury &amp; Fine Jewelry</span>
+            <span class="badge">Stock selezionato</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cosa-faccio" aria-labelledby="cosa-faccio-title">
+      <h2 id="cosa-faccio-title">Cosa faccio</h2>
+      <p>
+        Point Break non è un negozio online e non opera come rivenditore al dettaglio.
+        Il focus è sulla <strong>gestione di progetti B2B</strong> nel mondo del lusso,
+        con particolare attenzione alle esigenze di gioiellerie, brand e distributori.
+      </p>
+
+      <div class="columns">
+        <div>
+          <p><strong>Per gioiellerie e retailer</strong></p>
+          <ul>
+            <li>Valutazione congiunta di collezioni passate e stock selezionati</li>
+            <li>
+              Strutturazione di proposte dedicate verso Signed Pieces Group,
+              nel rispetto del posizionamento del punto vendita
+            </li>
+            <li>
+              Supporto nella preparazione di documentazione, liste e materiali necessari
+              a valutare un eventuale progetto
+            </li>
+          </ul>
+        </div>
+        <div>
+          <p><strong>Per brand e distributori</strong></p>
+          <ul>
+            <li>
+              Progetti mirati su <strong>inventory “lento rotante”</strong> o su
+              sezioni specifiche di gamma
+            </li>
+            <li>
+              Connessione con un ecosistema controllato B2B/B2C gestito da Signed Pieces
+              (The Solist, canali wholesale e progetti CPO-Luxe)
+            </li>
+            <li>
+              Approccio discreto, con processi e flussi condivisi passo dopo passo
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="signed-pieces" aria-labelledby="signed-pieces-title">
+      <h2 id="signed-pieces-title">Collegamento con Signed Pieces Group</h2>
+      <p class="muted">
+        Signed Pieces Group è un ecosistema con sede a New York che opera nel
+        segmento lusso attraverso canali B2B e B2C selezionati.
+      </p>
+      <div class="columns">
+        <div>
+          <p><strong>Ruolo di Point Break</strong></p>
+          <ul>
+            <li>
+              Struttura italiana che dialoga con gioiellerie, brand e distributori
+              interessati a esplorare progetti con Signed Pieces
+            </li>
+            <li>
+              Coordinamento delle informazioni: liste, inventory, immagini,
+              riferimenti tecnici e condizioni proposte
+            </li>
+            <li>
+              Interfaccia unica per i partner italiani, in lingua italiana,
+              con reporting verso il team di New York
+            </li>
+          </ul>
+        </div>
+        <div>
+          <p><strong>Perché questo collegamento è utile</strong></p>
+          <ul>
+            <li>Accesso ad un network internazionale specializzato nel lusso</li>
+            <li>
+              Progetti disegnati su misura, non soluzioni “una taglia per tutti”
+            </li>
+            <li>
+              Possibilità di dare continuità commerciale a collezioni passate
+              senza “svendere” il posizionamento del marchio
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contatti" aria-labelledby="contatti-title">
+      <h2 id="contatti-title">Contatti</h2>
+      <p>
+        Point Break lavora esclusivamente in ambito B2B.
+        Per approfondire un possibile progetto o per un confronto preliminare,
+        puoi utilizzare i contatti qui sotto.
+      </p>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>Contatto diretto</h3>
+          <p><strong>Luca Casati</strong></p>
+          <p class="muted">Point Break Srl – Italy</p>
+          <p>
+            E-mail:
+            <a href="mailto:luca.casati@point-break.it">luca.casati@point-break.it</a>
+          </p>
+          <p>
+            LinkedIn:
+            <a href="https://www.linkedin.com/in/lucacasati" target="_blank" rel="noopener noreferrer">
+              Luca Casati
+            </a>
+          </p>
+        </div>
+        <div class="contact-card">
+          <h3>Informazioni B2B</h3>
+          <p class="muted">
+            Se rappresenti una gioielleria, un brand o un distributore e desideri
+            valutare un possibile progetto con Signed Pieces Group,
+            puoi inviare una breve descrizione della situazione:
+          </p>
+          <ul>
+            <li>tipologia di articoli (gioielleria, orologeria, accessori)</li>
+            <li>marchi coinvolti</li>
+            <li>approssimazione delle quantità</li>
+          </ul>
+          <p class="muted" style="margin-top:8px;">
+            Riceverai un riscontro diretto, senza automatismi, per capire
+            se e come ha senso procedere.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      &copy; <span id="year"></span> Point Break Srl – Business Consulting.
+      Tutti i diritti riservati.
+    </p>
+    <p>
+      Questo sito è destinato esclusivamente a interlocutori B2B nel settore del lusso.
+    </p>
+  </footer>
+
+  <script>
+    // Anno automatico in footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
